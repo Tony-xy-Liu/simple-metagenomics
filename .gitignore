@@ -1,8 +1,10 @@
 # custom
+.conda
+*tmp*
 
 cache
 /scratch
-
+/secrets
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
