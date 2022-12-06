@@ -1,6 +1,6 @@
 NAME=simple-metagenomics
 DOCKER_IMAGE=quay.io/txyliu/$NAME
-echo $DOCKER_IMAGE
+echo image: $DOCKER_IMAGE
 
 HERE=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
@@ -12,12 +12,21 @@ case $1 in
         sudo singularity build $NAME.sif docker-daemon://$DOCKER_IMAGE
     ;;
     --run|-r)
-        docker run --rm \
+        docker run -it --rm \
+            -e XDG_CACHE_HOME="/app/scratch" \
             --mount type=bind,source="$HERE",target="/app" \
             --workdir="/app" \
             -u $(id -u):$(id -g) \
             $DOCKER_IMAGE \
             mamba run -n main ${*: 2:99}
+    ;;
+    --shell|-s)
+        docker run -i --rm -a stdout -a stderr \
+            -e XDG_CACHE_HOME="/app/scratch" \
+            --mount type=bind,source="$HERE",target="/app" \
+            --workdir="/app" \
+            -u $(id -u):$(id -g) \
+            $DOCKER_IMAGE
     ;;
     -tget)
         docker run $DOCKER_IMAGE \
