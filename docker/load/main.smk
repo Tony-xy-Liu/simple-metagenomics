@@ -1,10 +1,29 @@
 rule all:
     input: f"{config['sample']}/diamond/done"
 
+rule sra_download:
+    output:
+        r1="{sample}/sra_raw/{sample}_1.fastq",
+        r2="{sample}/sra_raw/{sample}_2.fastq",
+    threads: config["threads"],
+    shell:
+        """\
+        prefetch {wildcards.sample} -O {wildcards.sample}/sra_raw \
+        && fasterq-dump --threads {threads} {wildcards.sample}/sra_raw/{wildcards.sample} -O {wildcards.sample}/sra_raw \
+        """
+
+rule subsample:
+    input: "{sample}/sra_raw/{sample}_{n}.fastq"
+    output: "{sample}/input/r{n}.ss.fq"
+    shell:
+        """\
+        python /app/subsample.py {input} %s {output}
+        """ % (config['ss'],)
+    
 rule megahit:
     input:
-        r1="{sample}/input/r1.fq",
-        r2="{sample}/input/r2.fq",
+        r1="{sample}/input/r1.ss.fq",
+        r2="{sample}/input/r2.ss.fq",
     output: "{sample}/megahit/final.contigs.fa",
     threads: config["threads"],
     shell:
@@ -13,13 +32,13 @@ rule megahit:
             -1 {input.r1} \
             -2 {input.r2} \
             -o {wildcards.sample}/megahit/out \
-        && ln -s {wildcards.sample}/megahit/out/final.contigs.fa {wildcards.sample}/megahit/final.contigs.fa
+        && ln -s ./out/final.contigs.fa {wildcards.sample}/megahit/final.contigs.fa
         """
-
+        
 rule maxbin2:
     input:
-        r1="{sample}/input/r1.fq",
-        r2="{sample}/input/r2.fq",
+        r1="{sample}/input/r1.ss.fq",
+        r2="{sample}/input/r2.ss.fq",
         asm="{sample}/megahit/final.contigs.fa"
     output: "{sample}/maxbin2/done",
     threads: config["threads"],
@@ -38,15 +57,19 @@ rule prodigal:
     shell:
         """\
         mkdir -p prodigal
-        for bin in $(ls -a ./maxbin2 | grep .fasta); do
+        echo ls
+        for bin in $(ls -a {wildcards.sample}/maxbin2 | grep .fasta); do
             prodigal \
-                -i maxbin2/$bin \
-                -a prodigal/$bin.faa
-            if [ $? -ne 0 ]; then
+                -i {wildcards.sample}/maxbin2/$bin \
+                -a {wildcards.sample}/prodigal/$bin.faa
+            result=$?
+            if [ $result -ne 0 ]; then
                 break
+            fi
         done
-        if [ $? -eq 0 ]; then
+        if [ $result -eq 0 ]; then
             touch {wildcards.sample}/prodigal/done
+        fi
         """
 
 rule diamond:
@@ -58,15 +81,18 @@ rule diamond:
     shell:
         """\
         mkdir -p diamond
-        for bin in $(ls -a ./maxbin2 | grep .fasta); do
+        for bin in $(ls -a {wildcards.sample}/maxbin2 | grep .fasta); do
             diamond blastp \
                 -p {threads} -f 6 qseqid stitle pident evalue \
                 -d {input.ref} \
-                -q prodigal/$bin.faa \
-                -o diamond/$bin.tsv
-            if [ $? -ne 0 ]; then
+                -q {wildcards.sample}/prodigal/$bin.faa \
+                -o {wildcards.sample}/diamond/$bin.tsv
+            result=$?
+            if [ $result -ne 0 ]; then
                 break
+            fi
         done
-        if [ $? -eq 0 ]; then
+        if [ $result -eq 0 ]; then
             touch {wildcards.sample}/diamond/done
+        fi
         """
