@@ -6,8 +6,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 pks = ['simple_meta']
 
 setuptools.setup(
-    name="txyliu-simple-metagenomics",
-    version="0.0.1",
+    name="simple-metagenomics",
+    version="1.0.3",
     author="Tony Liu",
     author_email="contacttonyliu@gmail.com",
     description="metagenomics pipline for BIOF501",
@@ -24,15 +24,15 @@ setuptools.setup(
     package_dir={"": "src"},
     # packages=setuptools.find_packages(where="src"),
     packages=pks,
-    package_data={
-        # "":["*.txt"],
-        # "package-name": ["*.txt"],
-        # "test_package": ["res/*.txt"],
-    },
+    # package_data={
+    #     # "":["*.txt"],
+    #     # "package-name": ["*.txt"],
+    #     # "test_package": ["res/*.txt"],
+    # },
     entry_points={
         'console_scripts': [
             'smg = simple_meta:main',
         ]
     },
-    python_requires=">=3",
+    python_requires=">=3.6",
 )

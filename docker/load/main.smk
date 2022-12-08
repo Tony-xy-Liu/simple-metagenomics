@@ -49,6 +49,12 @@ rule maxbin2:
             -contig {input.asm} \
             -out {wildcards.sample}/maxbin2/ \
         && touch {wildcards.sample}/maxbin2/done
+        cd {wildcards.sample}/maxbin2
+        GLOBIGNORE=".:.."
+        for file in .*; do
+            unhidden=$(cut -c 2- <<< $file)
+            mv -n "$file" "$unhidden"
+        done
         """
 
 rule prodigal:
@@ -56,8 +62,6 @@ rule prodigal:
     output: "{sample}/prodigal/done",
     shell:
         """\
-        mkdir -p prodigal
-        echo ls
         for bin in $(ls -a {wildcards.sample}/maxbin2 | grep .fasta); do
             prodigal \
                 -i {wildcards.sample}/maxbin2/$bin \
@@ -80,9 +84,9 @@ rule diamond:
     threads: config["threads"],
     shell:
         """\
-        mkdir -p diamond
         for bin in $(ls -a {wildcards.sample}/maxbin2 | grep .fasta); do
             diamond blastp \
+                --header \
                 -p {threads} -f 6 qseqid stitle pident evalue \
                 -d {input.ref} \
                 -q {wildcards.sample}/prodigal/$bin.faa \

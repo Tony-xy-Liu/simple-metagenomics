@@ -7,7 +7,7 @@ cache
 /scratch
 /secrets
 
-/docker/load/cog*
+/docker/db/cog*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
