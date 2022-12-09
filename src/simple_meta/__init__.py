@@ -47,10 +47,11 @@ def shell_singularity(ref_dir, out_dir, cmd):
 def setup():
     parser = ArgumentParser(prog='smg setup')
 
+    parser.add_argument('-r', metavar='PATH', help="where to save required resources", required=True)
     parser.add_argument('-c', metavar='TYPE',
         choices=["singularity", "docker"],
-        help='"singularity" or "docker"', required=True)
-    parser.add_argument('-r', metavar='PATH', help="where to save required resources", required=True)
+        help='the resource container type, choose from: "singularity" (default) or "docker"',
+        default="singularity")
 
     args = parser.parse_args(sys.argv[2:])
     ref_path = os.path.abspath(args.r)
@@ -118,7 +119,7 @@ def run():
     else:
         success = 0==shell_docker(ref_path, out_path, cmd)
     if success and not args.mock:
-        print(f"{LINE}\nfinal output at\n{out_path}/{args.i}/diamond/")
+        print(f"{LINE}\nsubsample rate: {args.s}\nfinal output at\n{out_path}/{args.i}/diamond/")
 
 def help():
     print("""\
