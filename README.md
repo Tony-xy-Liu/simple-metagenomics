@@ -96,11 +96,11 @@ Interestingly, photosynthesis genes were found in both bins, including photosyst
 <table>
  <tr>
     <td>
-        <img src="https://raw.githubusercontent.com/Tony-xy-Liu/simple-metagenomics/main/resources/dag.svg" alt="(workflow diagram, view on github)" style="min-width:25vw;max-height:75vh"/>
+        <img src="https://raw.githubusercontent.com/Tony-xy-Liu/simple-metagenomics/main/resources/dag.svg" alt="(workflow diagram, view on github)" style="min-width:25vw;max-height:75vh" width="700px"/>
     </td>
     <td valign="top">
         <p>
-            The workflow is managed by snakemake [<a href="#refernces">6</a>] with all workflow-related dependencies packaged into a Docker container to maximize reproducibiltiy. Due to its' rising popularity, especially in the research community, Singularity [<a href="#refernces">7</a>] may be used as an alternative to Docker. The container image is hosted on <a href="https://quay.io/repository/txyliu/simple-metagenomics">Quay.io</a> and automatically pulled during setup.
+            The workflow is managed by snakemake [<a href="#references">6</a>] with all workflow-related dependencies packaged into a Docker container to maximize reproducibiltiy. Due to its' rising popularity, especially in the research community, Singularity [<a href="#references">7</a>] may be used as an alternative to Docker. The container image is hosted on <a href="https://quay.io/repository/txyliu/simple-metagenomics">Quay.io</a> and automatically pulled during setup.
         </p>
         <p>
             <b>sra_download:</b> Using <a href="https://github.com/ncbi/sra-tools/wiki">sra toolkit</a>, we download the paired-paired end fastqs pointed to by the given SRA run ID.
@@ -109,16 +109,16 @@ Interestingly, photosynthesis genes were found in both bins, including photosyst
             <b>subsample:</b> A python script randomly subsamples the fastq reads to the given percentage using <a href="https://numpy.org/doc/stable/">numpy</a>
         </p>
         <p>
-            <b>Megahit [<a href="#refernces">8</a>]:</b> The subsampled reads are assembled into longer segments (contigs).
+            <b>Megahit [<a href="#references">8</a>]:</b> The subsampled reads are assembled into longer segments (contigs).
         </p>
         <p>
-            <b>Maxbin2 [<a href="#refernces">9</a>]:</b> These segments are then clusted into bins based on tetranucleotide frequency and read coverage.
+            <b>Maxbin2 [<a href="#references">9</a>]:</b> These segments are then clusted into bins based on tetranucleotide frequency and read coverage.
         </p>
         <p>
-            <b>Prodigal [<a href="#refernces">10</a>]:</b> The contigs of each bin are then scanned for open reading frames (ORF) by using a dynamic programming algorithm that takes into account ribosomal binding sites, start & stop codons, and ORF length.
+            <b>Prodigal [<a href="#references">10</a>]:</b> The contigs of each bin are then scanned for open reading frames (ORF) by using a dynamic programming algorithm that takes into account ribosomal binding sites, start & stop codons, and ORF length.
         </p>
         <p>
-            <b>Diamond [<a href="#refernces">11</a>]:</b> Predicted ORFs are annotated based on the degree of homology with known reference sequences in the <b>Clusters of Orthologous Genes (COG)</b> [<a href="#refernces">12</a>] database.
+            <b>Diamond [<a href="#references">11</a>]:</b> Predicted ORFs are annotated based on the degree of homology with known reference sequences in the <b>Clusters of Orthologous Genes (COG)</b> [<a href="#references">12</a>] database.
         </p>
     </td>
  </tr>
