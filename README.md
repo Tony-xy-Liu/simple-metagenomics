@@ -29,16 +29,19 @@ The aim of this pipeline is to provide the simplest possible method for download
 ### **Manual Dependencies**
 
 - Linux OS/amd64
-- Python, version>=3.4 (so that you also have pip)
 - [Singularity](https://docs.sylabs.io/guides/2.6/user-guide/installation.html)
+- Either Anaconda or Python version>=3.4 (so that you have pip)
+
+[install Mamba (multithreaded Anaconda)](https://mamba.readthedocs.io/en/latest/installation.html)<br>
+[install Miniconda (smaller install)](https://docs.conda.io/en/latest/miniconda.html)<br>
+[install Anaconda](https://www.anaconda.com/products/distribution)<br>
 
 ### **Installation**
 We recommend that you use a virtual environment
 
 via conda...<br>
-[install miniconda](https://docs.conda.io/en/latest/miniconda.html)
 ```
-conda create --no-default-packages --name smg python -y
+conda create --no-default-packages --name smg python=3 -y
 conda activate smg
 ```
 
