@@ -30,7 +30,7 @@ The aim of this pipeline is to provide the simplest possible method for download
 
 - Linux OS/amd64
 - Python, version>=3.4 (so that you also have pip)
-- Singularity
+- [Singularity](https://docs.sylabs.io/guides/2.6/user-guide/installation.html)
 
 ### **Installation**
 We recommend that you use a virtual environment
