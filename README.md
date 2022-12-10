@@ -96,7 +96,7 @@ Interestingly, photosynthesis genes were found in both bins, including photosyst
 <table>
  <tr>
     <td>
-        <img src="resources/dag.svg" alt="(workflow diagram)"/>
+        <img src="https://raw.githubusercontent.com/Tony-xy-Liu/simple-metagenomics/main/resources/dag.svg" alt="(workflow diagram, view on github)" style="min-width:25vw;max-height:75vh"/>
     </td>
     <td valign="top">
         <p>
