@@ -7,7 +7,7 @@ pks = ['simple_meta']
 
 setuptools.setup(
     name="simple-metagenomics",
-    version="1.0.5",
+    version="1.0.6",
     author="Tony Liu",
     author_email="contacttonyliu@gmail.com",
     description="metagenomics pipline for BIOF501",
