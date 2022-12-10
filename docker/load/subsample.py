@@ -9,8 +9,8 @@ fdir = "/".join(fpath.split('/')[:-1])
 ENTRY_HEAD = '@' if fname.split('.')[-1] in ["fastq", "fq"] else '>' # fa
 
 if amnt>=1:
-    print(f'no subsampling for {fpath}')
-    os.symlink(fpath, out_path)
+    print(f'not subsampling for {fpath}')
+    os.symlink('../'+"/".join(fpath.split('/')[1:]), out_path)
 else:
     print(f'subsampling {fpath} to', amnt*100, '%')
 

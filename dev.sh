@@ -70,11 +70,11 @@ case $1 in
         #
         cd $HERE/src
         # # python -m simple_meta setup -ref $HERE/scratch/test1/ref -c docker
-        # python -m simple_meta run -ref $HERE/scratch/res -i SRR22508334 -o $HERE/scratch/test2/ws -t 16
+        # python -m simple_meta run -ref $HERE/scratch/res -i SRR19573024 -o $HERE/scratch/test2/ws -t 16
         # # --mock
 
         # python -m simple_meta setup -ref $HERE/scratch/res -c singularity
-        python -m simple_meta run -r $HERE/scratch/res -i SRR22508334 -o $HERE/scratch/test2/ws -t 16
+        python -m simple_meta run -r $HERE/scratch/res -i SRR19573024 -o $HERE/scratch/test3/ws -t 14
     ;;
     *)
         echo "bad option"

@@ -1,5 +1,8 @@
 import os, sys
 import argparse
+import subprocess
+import signal
+import time
 
 IMAGE = 'simple-metagenomics'
 URL = f"quay.io/txyliu/{IMAGE}:latest"
@@ -22,7 +25,7 @@ Please be patient!
 
 def shell_docker(ref_dir, out_dir, cmd):
             # --mount type=bind,source="/home/tony/workspace/python/grad/simple-metagenomics/docker/load",target="/app" \
-    return os.system(f"""\
+    proc = subprocess.Popen([f"""\
         docker run --rm \
             -e XDG_CACHE_HOME="/ws/" \
             --mount type=bind,source="{out_dir}",target="/ws"\
@@ -32,7 +35,17 @@ def shell_docker(ref_dir, out_dir, cmd):
             -u $(id -u):$(id -g) \
             {URL} \
             /bin/bash -c "source /opt/conda/etc/profile.d/conda.sh && conda run -n main {cmd}"
-    """)
+    """], shell=True)
+    def handler(signum, frame):
+        proc.terminate()
+        os.system(f"""\
+            CID=$(docker ps | grep quay.io/txyliu/simple-metagenomics:latest | cut -c1-12 -)
+            docker stop $CID
+            rm {out_dir}/.snakemake/locks/*
+        """)
+    signal.signal(signal.SIGINT, handler)
+    while proc.poll() is None:
+        time.sleep(1)
 
 def shell_singularity(ref_dir, out_dir, cmd):
     return os.system(f"""\
@@ -90,11 +103,11 @@ def run():
     # parser.add_argument('-1', metavar='FASTQ', help="paried-end fastq reads 1", required=True)
     # parser.add_argument('-2', metavar='FASTQ', help="paried-end fastq reads 2", required=True)
     parser.add_argument('-r', metavar='PATH', help="path to saved required resources from running: smg setup", required=True)
-    parser.add_argument('-i', metavar='SRA_ID', help="example: SRR22508334", required=True)
+    parser.add_argument('-i', metavar='SRA_ID', help="example: SRR19573024", required=True)
     parser.add_argument('-o', metavar='PATH', help="output folder", required=True)
     parser.add_argument('-s', metavar='DECIMAL', type=float, help="subsample fraction for raw reads, set to 1 for no subsampling, default:0.01", default=0.01 )
     parser.add_argument('-t', metavar='INT', type=int, help="threads, default:16", default=16)
-    parser.add_argument('--mock', help="where to save required resources", 
+    parser.add_argument('--mock', help="dry run snakemake", 
         action='store_true', default=False, required=False)
 
     args = parser.parse_args(sys.argv[2:])

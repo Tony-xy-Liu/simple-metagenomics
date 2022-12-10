@@ -28,7 +28,7 @@ rule megahit:
     threads: config["threads"],
     shell:
         """\
-        megahit -t {threads} --no-mercy --k-list 31,59,87,115 \
+        megahit -t {threads} --no-mercy --k-list 59,87,115 \
             -1 {input.r1} \
             -2 {input.r2} \
             -o {wildcards.sample}/megahit/out \
