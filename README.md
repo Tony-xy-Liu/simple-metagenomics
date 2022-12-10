@@ -89,7 +89,7 @@ Expected output:<br>
 Columns: Query ID (ORF), Subject title (annotation), Percentage of identical matches, Expected value <br>
 Interestingly, photosynthesis genes were found in both bins, including photosystems I and II. Bin 001, however, showed a greater potential to fix nitrogen since nifB, nifS, and nifU were identified which accounts for 3 out of the 4 genes of a known nitrogen fixation operon [[5](#references)]. While the remaining gene, fdxN, was not explicitly identified, a ferredoxin nitrite reductase was found in its' stead. Only nifB was found in bin 002.
 
-[Complete annotation tables](/expected_output/)
+[Complete annotation tables](https://github.com/Tony-xy-Liu/simple-metagenomics/tree/main/example_output)
 
 ## Implementation
 
