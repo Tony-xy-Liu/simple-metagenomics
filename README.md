@@ -38,26 +38,26 @@ We recommend that you use a virtual environment
 via conda...<br>
 [install miniconda](https://docs.conda.io/en/latest/miniconda.html)
 ```
-    conda create --no-default-packages --name smg python -y
-    conda activate smg
+conda create --no-default-packages --name smg python -y
+conda activate smg
 ```
 
 **or** via venv
 ```
-    pip install venv
-    python -m venv ./smg
-    source ./smg/bin/activate
+pip install venv
+python -m venv ./smg
+source ./smg/bin/activate
 
 ```
 
 In the environment, install simple metagenomics
 ```
-    pip install simple-metagenomics
+pip install simple-metagenomics
 ```
 
 Select a folder to save additional reference resources (`./ref`).
 ```
-    smg setup -r ./ref
+smg setup -r ./ref
 ```
 
 ### **Execution**
@@ -66,7 +66,7 @@ Obtain the SRA run ID for a whole genome metagenomics sequencing entry. For exam
 [Example search](https://www.ncbi.nlm.nih.gov/sra?term=(%22metagenome%22%5BOrganism%5D)%20AND%20%22wgs%22%5BStrategy%5D)
 
 ```
-    smg run -r ./ref -i SRR19573024 -o ./out
+smg run -r ./ref -i SRR19573024 -o ./out
 ```
 
 Once complete, look for annotation tables under `./out/SRR19573024/diamond/`.<br>
