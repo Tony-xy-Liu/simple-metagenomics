@@ -35,7 +35,7 @@ The aim of this pipeline is to provide the simplest possible method for download
 ### **Installation**
 We recommend that you use a virtual environment
 
-via conda...
+via conda...<br>
 [install miniconda](https://docs.conda.io/en/latest/miniconda.html)
 ```
     conda create --no-default-packages --name smg python -y
