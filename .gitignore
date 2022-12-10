@@ -1,8 +1,13 @@
 # custom
+.snakemake
+.conda
+*tmp*
 
 cache
 /scratch
+/secrets
 
+/docker/db/cog*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
