@@ -37,7 +37,7 @@ We recommend that you use a virtual environment
 
 via conda...
 ```
-    conda create --no-default-packages --name smg python
+    conda create --no-default-packages --name smg python -y
     conda activate smg
 ```
 
