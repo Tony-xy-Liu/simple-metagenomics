@@ -73,7 +73,7 @@ smg run -r ./ref -i SRR19573024 -o ./out
 ```
 
 Once complete, look for annotation tables under `./out/SRR19573024/diamond/`.<br>
-*Expected runtime: ~30 minutes with 16 threads and subsampled to 1%.*
+*Expected runtime: ~30 minutes with 16 threads and subsampled to 1%, but can be longer than 3 hours depending your internet.*
 
 Expected output:<br>
 
