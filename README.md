@@ -90,8 +90,8 @@ Expected output:<br>
             ├── 001.fasta.tsv   # annotation table for 1 bin
             ├── 002.fasta.tsv   # 2 bins should be resolved from SRR19573024 by default
 
-Columns: Query ID (ORF), Subject title (annotation), Percentage of identical matches, Expected value <br>
-Interestingly, photosynthesis genes were found in both bins, including photosystems I and II. Bin 001, however, showed a greater potential to fix nitrogen since nifB, nifS, and nifU were identified which accounts for 3 out of the 4 genes of a known nitrogen fixation operon [[5](#references)]. While the remaining gene, fdxN, was not explicitly identified, a ferredoxin nitrite reductase was found in its' stead. Only nifB was found in bin 002.
+Columns: Query ID (ORF), Subject title (annotation), Percentage of identical matches, Expected value <br><br>
+Interestingly, photosynthesis genes were found in both bins, including photosystems I and II. Bin 001, however, showed a greater potential to fix nitrogen since nifB, nifS, and nifU were identified which accounts for 3 out of the 4 genes of a known nitrogen fixation operon [[5](#references)]. While the remaining gene, fdxN, was not explicitly identified, a ferredoxin nitrite reductase was found instead. Only nifB was found in bin 002.
 
 [Complete annotation tables](https://github.com/Tony-xy-Liu/simple-metagenomics/tree/main/example_output)
 
@@ -107,7 +107,7 @@ Interestingly, photosynthesis genes were found in both bins, including photosyst
             The workflow is managed by snakemake [<a href="#references">6</a>] with all workflow-related dependencies packaged into a Docker container to maximize reproducibiltiy. Due to its' rising popularity, especially in the research community, Singularity [<a href="#references">7</a>] may be used as an alternative to Docker. The container image is hosted on <a href="https://quay.io/repository/txyliu/simple-metagenomics">Quay.io</a> and automatically pulled during setup.
         </p>
         <p>
-            <b>sra_download:</b> Using <a href="https://github.com/ncbi/sra-tools/wiki">sra toolkit</a>, we download the paired-paired end fastqs pointed to by the given SRA run ID.
+            <b>sra_download:</b> Using <a href="https://github.com/ncbi/sra-tools/wiki">sra toolkit</a>, we download the paired-end fastq reads pointed to by the given SRA run ID.
         </p>
         <p>
             <b>subsample:</b> A python script randomly subsamples the fastq reads to the given percentage using <a href="https://numpy.org/doc/stable/">numpy</a>
